@@ -22,6 +22,9 @@ _REGISTRY = {
     # stable-ts: Whisper with stabilised timestamps, driven through its
     # align() API on the reference transcript -- track 1, word tier only.
     "stable_ts": "fabench.aligners.stable_ts:StableTS",
+    # nyra forced aligner: WavLM features + triphone GMM-HMM, given the reference
+    # transcript -- track 1, word and phone tiers, per-word confidence.
+    "nyra": "fabench.aligners.nyra:Nyra",
     # ElevenLabs forced alignment: the Scribe account's endpoint that is HANDED
     # the reference words, so it is a genuine track-1 aligner on the word tier,
     # beside its own track-2 row `elevenlabs`. HTTPS, no venv, like the cloud

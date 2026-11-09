@@ -1,0 +1,25 @@
+# nyra forced aligner -- word and phone forced alignment.
+# https://huggingface.co/nyralabs/nyra_forced_aligner_en
+#
+# A FORCED ALIGNER (audio + reference transcript -> word and phone times):
+# WavLM-large features, an LDA projection and a triphone GMM-HMM decoded with a
+# beam Viterbi. Both tiers are scored: words, and the ARPAbet phones inside
+# them (normalized as `arpabet`, AX -> ah). Per-word confidence is reported.
+name: nyra
+adapter: nyra
+access: open
+enabled: true
+modes: [A]                 # from text; no gold-phone mode
+granularity: [word, phone]
+emits_confidence: true     # per word; phones carry none
+# Runs in its OWN interpreter via evals/aligners/nyra/worker.py, batched so the
+# model loads once per cell.
+params:
+  venv: venv
+  # null = no timeout: results are only emitted when the batch worker
+  # finishes, so a timeout loses the whole cell rather than truncating it.
+  timeout_s: null
+  model: nyralabs/nyra_forced_aligner_en
+  # WavLM in fp32, the package's reference path. fp16 (its CUDA default) is
+  # about twice as fast and moves <= 30 ms on ~0.5% of word boundaries.
+  precision: fp32
