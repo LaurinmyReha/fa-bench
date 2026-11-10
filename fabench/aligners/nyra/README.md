@@ -16,7 +16,7 @@ beside MFA and Olign.
 ## Requirements
 
 ```bash
-evals/aligners/nyra/download_and_install.sh    # own venv, nyra-forced-aligner==0.2.4
+evals/aligners/nyra/download_and_install.sh    # own venv, nyra-forced-aligner==0.2.5
 ```
 
 A private venv, like every subprocess aligner: the package brings its own torch,
@@ -42,7 +42,10 @@ outside the model's 41k-word lexicon.
 
 ## Caveats
 
-- **Use 0.2.3 or later.** Up to 0.2.2 the package's 30 s WavLM windows were
+- **Use 0.2.5 or later.** 0.2.5 puts 0.24 s of silence in front of the audio
+  before computing features (and drops it again), so leading silence no longer
+  sticks to the first word: TIMIT word MAE 27.0 -> 24.1 ms.
+- **0.2.3 fixed long audio.** Up to 0.2.2 the package's 30 s WavLM windows were
   stitched one frame short each, so recordings longer than 30 s drifted by
   20 ms every 29 s. TIMIT and Buckeye test utterances are shorter than that and
   were never affected, but the pin keeps longer inputs honest.

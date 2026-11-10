@@ -23,8 +23,9 @@ uv pip install --python "$HERE/venv/bin/python" \
     --extra-index-url https://pypi.org/simple
 # VERSION PINNED to what produced the published numbers. 0.2.3 is the first
 # release whose long-audio window stitching does not drift (0.2.2 lost 20 ms
-# every 29 s on recordings over 30 s) and the first with per-word confidence.
-uv pip install --python "$HERE/venv/bin/python" nyra-forced-aligner==0.2.4
+# every 29 s on recordings over 30 s) and the first with per-word confidence;
+# 0.2.5 stops leading silence sticking to the first word.
+uv pip install --python "$HERE/venv/bin/python" nyra-forced-aligner==0.2.5
 
 "$HERE/venv/bin/python" - <<PY
 import torch
